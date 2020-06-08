@@ -70,8 +70,8 @@ document
         //add or remove a class with JS
         itemLi.classList.toggle("selected");
 
-        const itemId = event.target.dataset.id;
-        console.log(event.target);
+        const itemId = itemLi.dataset.id;
+        console.log("ITEM ID: itemId");
 
         //Check if there are any selected items
         const alreadySelected = selectedItems.findIndex(item => {

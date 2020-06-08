@@ -1,57 +1,47 @@
-<!DOCTYPE html>
-    <html lang='pt_br'>
-        <head>
-            <meta charset='UTF-8'>
-            <meta name='viewport' container='width=device-width, initial-scale=1.0'>
-            <title>Resultado da pesquisa</title>
+{% extends "partials/layout.html" %}
+{% set pageId = "page-search-results" %}
 
-            <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu:ital,wght@1,700&display=swap" rel="stylesheet">  
-            <link rel='stylesheet' href='/styles/main.css'>
-            <link rel='stylesheet' href='/styles/search-results.css'>
-            <link rel='stylesheet' href='/styles/responsive.css'>
+{% block title %}
+    <title>Resultado da pesquisa</title>
+{% endblock title %}
 
-        </head>
-        <body>
-            <div id='page-search-results'>
-                <header>
-                    <img src="/assets/logo.svg" alt='Logomarca'>
-                    <a class='head' href='/'><span></span>Voltar para a home</a>
-                </header>
+{% block styles %}
+    {% include "partials/page-header.html" %}
+    <link rel="stylesheet" src="/styles/search-results.css">
+{% endblock styles %}
 
-                <main>
-                    <h3>
-                        <strong>
-                            2 pontos
-                        </strong> encontrados
-                    </h3>
+{% block content %}
+    <main>
 
-                    <div class="cards">
-                        <div class="card">
-                            <img src="https://images.unsplash.com/photo-1480359014333-3935abd88252?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80" alt="Colectoria">
-                            <h1>Colectoria</h1>
-                            <h3>Resíduos eletrônicos, Lâmpadas</h3>
-                            <p>
-                            Rio do Sul, Santa Catarina<br>
-                            Guilherme Gemballa, Jardim América
-                            nº 260
-                            </p>
-                        </div>
+    {% if foundObjects > 0 %}
+    {% for place in places %}
 
-                        <div class="card">
-                            <img src="https://images.unsplash.com/photo-1528323273322-d81458248d40?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1401&q=80" alt="Paperside">
-                            <h1>Colectoria</h1>
-                            <h3>Resíduos eletrônicos, Lâmpadas</h3>
-                            <p>
-                                Rio do Sul, Santa Catarina<br>
-                                Guilherme Gemballa, Jardim América
-                                nº 260
-                            </p>
-                        </div>
-                    </div>
-                </main>
+        <div class="card">
+                <img src="{{place.image}}" alt="{{place.name}}">
+                <h1>{{place.name}}</h1>
+                <h3>{{place.items}}</h3>
+                <p>
+                    {{place.city}}, {{place.state}}<br>
+                    {{place.address}} {{place.address2}}
+                </p>
             </div>
-            <!--
-            <script src='/scripts/create-point.js'></script>
-            -->
-        </body>
-    </html>
+
+        {% endfor %}
+        {%else%}
+
+        <h1>Itens não encontrados</h1>
+
+    {% endif %}
+        <h3>
+            <strong>
+                {{foundObjects}} pontos
+            </strong>
+            encontrados
+        </h3>
+
+        <div class="cards">    
+        </div>
+    </main>
+{% endblock content %}
+
+</html>
